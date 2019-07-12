@@ -1,9 +1,10 @@
 const mongodb = require('mongodb');
 const MongoClient = mongodb.MongoClient;
-
+const url = 'mongodb+srv://ecommerce:rishabh123456@cluster0-y45l2.mongodb.net/test?retryWrites=true&w=majority';
 const mongoConnect = (callback) => {
     MongoClient.connect(
-        'mongodb+srv://rishabh:9302111070@cluster0-y45l2.mongodb.net/test?retryWrites=true&w=majority'
+        url,
+        { useNewUrlParser: true}
     )
     .then(client => {
         console.log('Connection!')
@@ -12,3 +13,5 @@ const mongoConnect = (callback) => {
         console.log(err)
     });
 }
+
+module.exports = mongoConnect;
