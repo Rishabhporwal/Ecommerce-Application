@@ -10,6 +10,7 @@ exports.getAddProduct = (req, res, next) => {
     editing: false
   });
 };
+
 exports.postAddProduct = (req, res, next) => {
   const title = req.body.title;
   const imageUrl = req.body.imageUrl;
@@ -21,7 +22,7 @@ exports.postAddProduct = (req, res, next) => {
     price: price,
     description: description,
     imageUrl: imageUrl,
-    userId: req.user._id
+    userId: req.user
   });
 
   product
@@ -34,6 +35,7 @@ exports.postAddProduct = (req, res, next) => {
       console.log(err);
     });
 };
+
 exports.getEditProduct = (req, res, next) => {
   const editMode = req.query.edit;
   if (!editMode) {
@@ -56,6 +58,7 @@ exports.getEditProduct = (req, res, next) => {
       console.log(err);
     });
 };
+
 exports.postEditProduct = (req, res, next) => {
   const prodId = req.body.productId;
   const updatedTitle = req.body.title;
@@ -79,8 +82,11 @@ exports.postEditProduct = (req, res, next) => {
       console.log(err);
     });
 };
+
 exports.getProducts = (req, res, next) => {
   Product.find()
+    // .select('title price -_id')
+    //   .populate('userId','name')
     .then(products => {
       res.render("admin/products", {
         prods: products,
